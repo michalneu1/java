@@ -53,7 +53,7 @@ public class Main {
                 case '/' -> inputA / inputB;
                 case '%' -> inputA % inputB;
                 case '^' -> Math.pow(inputA, inputB);
-                default  -> null;
+                default -> null;
             };
 
             System.out.println("wynik: " + result);
@@ -80,29 +80,33 @@ public class Main {
 
     }
 
-    private static boolean isNumber(String s) {
-        int i = 0;
-        if (s.charAt(0) == '+' || s.charAt(0) == '-') {
-            i++;
-        }
-        if (i == s.length()) {
-            return false;
-        }
-        boolean hasDot = false;
-        boolean hasDigit = false;
-        for (; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '.') {
-                if (hasDot) {
-                    return false;
-                }
-                hasDot = true;
-            } else if (Character.isDigit(c)) {
-                hasDigit = true;
-            } else {
-                return false;
-            }
-        }
-        return hasDigit;
+//    private static boolean isNumber(String s) {
+//        int i = 0;
+//        if (s.charAt(0) == '+' || s.charAt(0) == '-') {
+//            i++;
+//        }
+//        if (i == s.length()) {
+//            return false;
+//        }
+//        boolean hasDot = false;
+//        boolean hasDigit = false;
+//        for (; i < s.length(); i++) {
+//            char c = s.charAt(i);
+//            if (c == '.') {
+//                if (hasDot) {
+//                    return false;
+//                }
+//                hasDot = true;
+//            } else if (Character.isDigit(c)) {
+//                hasDigit = true;
+//            } else {
+//                return false;
+//            }
+//        }
+//        return hasDigit;
+//    }
+
+    private static boolean isNumber(String s){
+        return s.matches("-?\\d+(\\.\\d+)?");
     }
 }
