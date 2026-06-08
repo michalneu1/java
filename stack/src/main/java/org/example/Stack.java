@@ -33,22 +33,22 @@ public class Stack {
 
     public void remove(Integer v) {
         Node curent = head;
-        if(curent==null){
+        if (curent == null) {
             System.out.println("pusty stack");
             return;
         }
-        if(curent.getV().equals(v)){
-             head = head.getNext();
-             size--;
-             return;
+        if (curent.getV().equals(v)) {
+            head = head.getNext();
+            size--;
+            return;
         }
-        while (curent.getNext()!=null){
-                if(curent.getNext().getV().equals(v)){
-                    size--;
-                    curent.setNext(curent.getNext().getNext());
-                    return;
-                }
-                curent=curent.getNext();
+        while (curent.getNext() != null) {
+            if (curent.getNext().getV().equals(v)) {
+                size--;
+                curent.setNext(curent.getNext().getNext());
+                return;
+            }
+            curent = curent.getNext();
         }
     }
 }
