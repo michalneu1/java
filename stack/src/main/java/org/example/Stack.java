@@ -1,7 +1,7 @@
 package org.example;
 
-public class Stack {
-    private Node head;
+public class Stack <T> {
+    private Node<T> head;
     private int size;
 
     public Stack() {
@@ -9,19 +9,19 @@ public class Stack {
         size = 0;
     }
 
-    public void push(Integer v) {
-        Node n = new Node(v);
+    public void push(T v) {
+        Node<T> n = new Node<>(v);
         n.setNext(head);
         head = n;
         size++;
     }
 
-    public Integer pop() {
+    public T pop() {
         if (head == null) {
             System.out.println("Stack jest pusty");
             return null;
         }
-        Integer value = head.getV();
+        T value = head.getV();
         head = head.getNext();
         size--;
         return value;
@@ -31,8 +31,8 @@ public class Stack {
         return size;
     }
 
-    public void remove(Integer v) {
-        Node curent = head;
+    public void remove(T v) {
+        Node<T> curent = head;
         if (curent == null) {
             System.out.println("pusty stack");
             return;
