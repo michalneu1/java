@@ -1,22 +1,22 @@
 package org.example;
 
-public class Node {
-    private final Integer v;
-    private Node next;
+public class Node <T> {
+    private final T v;
+    private Node<T> next;
 
-    public Node(int v) {
+    public Node(T v) {
         this.v = v;
     }
 
-    public Integer getV() {
+    public T getV() {
         return v;
     }
 
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
