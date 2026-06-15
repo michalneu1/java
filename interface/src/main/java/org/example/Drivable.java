@@ -1,5 +1,5 @@
 package org.example;
 
 public interface Drivable {
-    void drive();
+    void drive(double km);
 }
