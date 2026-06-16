@@ -1,18 +1,30 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 public abstract class Vehicle implements Drivable {
-    private String brand;
-    private String model;
-    private int year;
+    final private String brand;
+    final private String model;
+    final private int year;
     private FuelType fuelType;
     private double tankSize;
     private double fuelConsumption;
     private double currentTankValue;
 
     public Vehicle(String brand, String model, int year, FuelType fuelType, double tank, double fuelConsumption) {
-        setBrand(brand);
-        setModel(model);
-        setYear(year);
+        if (brand == null) {
+            throw new IllegalArgumentException("Marka nie może być pusta");
+        }
+        this.brand = brand;
+
+        if (model == null) {
+            throw new IllegalArgumentException("Model nie może być pusty");
+        }
+        this.model = model;
+        if (year >= 2026) {
+            throw new IllegalArgumentException("Rok musi być mniejszy/równy 2026, podano: " + year);
+        }
+        this.year = year;
         setFuelType(fuelType);
         setTankSize(tank);
         setFuelConsumption(fuelConsumption);
@@ -22,33 +34,14 @@ public abstract class Vehicle implements Drivable {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        if (brand == null ) {
-            throw new IllegalArgumentException("Marka nie może być pusta");
-        }
-        this.brand = brand;
-    }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        if (model == null ) {
-            throw new IllegalArgumentException("Model nie może być pusty");
-        }
-        this.model = model;
-    }
 
     public int getYear() {
         return year;
-    }
-
-    public void setYear(int year) {
-        if ( year <= 2026) {
-            throw new IllegalArgumentException("Rok musi być mniejszy/równy 2026, podano: " + year);
-        }
-        this.year = year;
     }
 
     public FuelType getFuelType() {
@@ -137,7 +130,7 @@ public abstract class Vehicle implements Drivable {
         }
         double added = Math.min(value, freeSpace);
         currentTankValue += added;
-        double cost = fuelType.getPrice() * added;
+        BigDecimal cost = BigDecimal.valueOf(fuelType.getPrice()).multiply(BigDecimal.valueOf(added));
         System.out.printf("Zatankowano %.2f %s, cena: %.2f%n", added, fuelType.name(), cost);
         if (added < value) {
             System.out.printf("Nie zmieściło się %.2f (bak pełny)%n", value - added);

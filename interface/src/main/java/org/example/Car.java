@@ -10,7 +10,7 @@ public class Car extends Vehicle {
 
     @Override
     public String toString() {
-        return "Car{doors=" + doors + ", " + super.toString() + "}";
+        return String.format("Car{doors=%d, %s}",doors,super.toString());
     }
 
     public int getDoors() {

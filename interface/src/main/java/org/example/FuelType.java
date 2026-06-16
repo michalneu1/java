@@ -3,7 +3,7 @@ package org.example;
 public enum FuelType {
     PETROL(5.0), DIESEL(6.0), ELECTRIC(3.0);
 
-    FuelType(double price) {
+    private FuelType(double price) {
         this.price = price;
     }
 
