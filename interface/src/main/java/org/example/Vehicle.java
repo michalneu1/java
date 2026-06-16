@@ -34,11 +34,9 @@ public abstract class Vehicle implements Drivable {
         return brand;
     }
 
-
     public String getModel() {
         return model;
     }
-
 
     public int getYear() {
         return year;
@@ -80,7 +78,6 @@ public abstract class Vehicle implements Drivable {
     public double getCurrentTankValue() {
         return currentTankValue;
     }
-
 
     public void display() {
         System.out.println(this);
