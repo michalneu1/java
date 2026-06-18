@@ -15,12 +15,8 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public int getLength() {
-        return length;
-    }
-
     public boolean getIsBorrowed() {
-        return !isBorrowed;
+        return isBorrowed;
     }
 
     public void setBorrowed(boolean borrowed) {
