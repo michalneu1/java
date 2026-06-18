@@ -44,8 +44,8 @@ class LibraryService {
     private boolean executeChoice(int choice) throws ItemAlreadyReturnedException {
         switch (choice) {
             case 1 -> displayElements();
-            case 2 -> lendItem(readTitle());
-            case 3 -> returnElement(readTitle());
+            case 2 -> findByTitle(readTitle()).lendItem();
+            case 3 -> findByTitle(readTitle()).returnElement();
             case 4 -> moviesAndBooksCount();
             case 5 -> { return false; }
             default -> System.out.println("Niepoprawny wybór, spróbuj ponownie.");
@@ -77,23 +77,7 @@ class LibraryService {
         }
     }
 
-    public void lendItem(String title) {
-        LibraryItem item = findByTitle(title);
-        if (item.getIsBorrowed()) {
-            throw new ItemAlreadyBorrowedException(String.format("Tytuł '%s' został już wypożyczony", title));
-        }
-        item.setBorrowed(true);
-        System.out.println("wypożyczono element");
-    }
 
-    public void returnElement(String title) throws ItemAlreadyReturnedException {
-        LibraryItem item = findByTitle(title);
-        if (!item.getIsBorrowed()) {
-            throw new ItemAlreadyReturnedException(String.format("Element '%s' nie był wypożyczony", title));
-        }
-        item.setBorrowed(false);
-        System.out.println("Zwrocono " + title);
-    }
 
     public void moviesAndBooksCount() {
         System.out.printf("Ilość książek: %d %nilość filmów: %d %n", Book.getCounter(), Movie.getCounter());

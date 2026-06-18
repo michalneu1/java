@@ -15,12 +15,20 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public boolean getIsBorrowed() {
-        return isBorrowed;
+    public void lendItem() {
+        if (isBorrowed) {
+            throw new ItemAlreadyBorrowedException(String.format("Tytuł '%s' został już wypożyczony", title));
+        }
+        isBorrowed = true;
+        System.out.println("wypożyczono element");
     }
 
-    public void setBorrowed(boolean borrowed) {
-        isBorrowed = borrowed;
+    public void returnElement() throws ItemAlreadyReturnedException {
+        if (!isBorrowed) {
+            throw new ItemAlreadyReturnedException(String.format("Element '%s' nie był wypożyczony", title));
+        }
+        isBorrowed = false;
+        System.out.println("Zwrocono " + title);
     }
 
     @Override
