@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 class LibraryService {
@@ -18,7 +19,7 @@ class LibraryService {
 
     private void printMenu() {
         System.out.println("""
-
+                
                 1: wyświetl listę elementów
                 2: Wypożycz przedmiot
                 3: zwróć element
@@ -44,10 +45,20 @@ class LibraryService {
     private boolean executeChoice(int choice) throws ItemAlreadyReturnedException {
         switch (choice) {
             case 1 -> displayElements();
-            case 2 -> findByTitle(readTitle()).lendItem();
-            case 3 -> findByTitle(readTitle()).returnElement();
+            case 2 -> findByTitle(readTitle()).ifPresentOrElse(LibraryItem::lendItem, () -> {
+                throw new ItemNotFoundException("Brak elementu o podanym tytule");
+            });
+            case 3 -> {
+                var opt = findByTitle(readTitle());
+                if (opt.isEmpty()){
+                    throw new ItemNotFoundException("Brak elementu o tym tytule");
+                }
+                opt.get().returnItem();
+            }
             case 4 -> moviesAndBooksCount();
-            case 5 -> { return false; }
+            case 5 -> {
+                return false;
+            }
             default -> System.out.println("Niepoprawny wybór, spróbuj ponownie.");
         }
         return true;
@@ -58,13 +69,13 @@ class LibraryService {
         return scanner.nextLine();
     }
 
-    private LibraryItem findByTitle(String title) {
+    private Optional<LibraryItem> findByTitle(String title) {
         for (LibraryItem libraryItem : elementsInLibrary) {
             if (libraryItem.getTitle().equals(title)) {
-                return libraryItem;
+                return Optional.of(libraryItem);
             }
         }
-        throw new ItemNotFoundException("Brak elementu o tytule: " + title);
+        return Optional.empty();
     }
 
     public void addElement(LibraryItem item) {
@@ -76,8 +87,6 @@ class LibraryService {
             System.out.println(libraryItem);
         }
     }
-
-
 
     public void moviesAndBooksCount() {
         System.out.printf("Ilość książek: %d %nilość filmów: %d %n", Book.getCounter(), Movie.getCounter());

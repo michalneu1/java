@@ -23,9 +23,9 @@ public abstract class LibraryItem {
         System.out.println("wypożyczono element");
     }
 
-    public void returnElement() throws ItemAlreadyReturnedException {
+    public void returnItem() throws ItemAlreadyReturnedException {
         if (!isBorrowed) {
-            throw new ItemAlreadyReturnedException(String.format("Element '%s' nie był wypożyczony", title));
+            throw new ItemAlreadyReturnedException(String.format("Item '%s' nie był wypożyczony", title));
         }
         isBorrowed = false;
         System.out.println("Zwrocono " + title);
