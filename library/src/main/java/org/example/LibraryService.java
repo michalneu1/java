@@ -45,16 +45,12 @@ class LibraryService {
     private boolean executeChoice(int choice) throws ItemAlreadyReturnedException {
         switch (choice) {
             case 1 -> displayElements();
-            case 2 -> findByTitle(readTitle()).ifPresentOrElse(LibraryItem::lendItem, () -> {
-                throw new ItemNotFoundException("Brak elementu o podanym tytule");
-            });
-            case 3 -> {
-                var opt = findByTitle(readTitle());
-                if (opt.isEmpty()){
-                    throw new ItemNotFoundException("Brak elementu o tym tytule");
-                }
-                opt.get().returnItem();
-            }
+            case 2 -> findByTitle(readTitle())
+                    .orElseThrow(() -> new ItemNotFoundException("Brak elementu o podanym tytule"))
+                    .lendItem();
+            case 3 -> findByTitle(readTitle())
+                    .orElseThrow(() -> new ItemNotFoundException("Brak elementu o tym tytule"))
+                    .returnItem();
             case 4 -> moviesAndBooksCount();
             case 5 -> {
                 return false;
