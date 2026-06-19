@@ -20,7 +20,7 @@ public abstract class LibraryItem {
             throw new ItemAlreadyBorrowedException(String.format("Tytuł '%s' został już wypożyczony", title));
         }
         isBorrowed = true;
-        System.out.println("wypożyczono element");
+        System.out.println("wypożyczono " + title);
     }
 
     public void returnItem() throws ItemAlreadyReturnedException {

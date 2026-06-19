@@ -66,12 +66,7 @@ class LibraryService {
     }
 
     private Optional<LibraryItem> findByTitle(String title) {
-        for (LibraryItem libraryItem : elementsInLibrary) {
-            if (libraryItem.getTitle().equals(title)) {
-                return Optional.of(libraryItem);
-            }
-        }
-        return Optional.empty();
+        return elementsInLibrary.stream().filter(item -> item.getTitle().equals(title)).findAny();
     }
 
     public void addElement(LibraryItem item) {
@@ -79,9 +74,7 @@ class LibraryService {
     }
 
     public void displayElements() {
-        for (LibraryItem libraryItem : elementsInLibrary) {
-            System.out.println(libraryItem);
-        }
+        elementsInLibrary.stream().forEach(System.out::println);
     }
 
     public void moviesAndBooksCount() {
