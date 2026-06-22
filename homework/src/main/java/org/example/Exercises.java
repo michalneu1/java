@@ -72,7 +72,8 @@ public class Exercises {
      */
     public static long getCompaniesAmount() {
 
-        return holdings.stream().mapToLong(holding -> holding.getCompanies().size()).sum();
+        return holdings.stream().mapToLong(holding -> holding.getCompanies().size())
+                .sum();
     }
 
 
@@ -81,7 +82,8 @@ public class Exercises {
      */
     public static long getAllUserAmount() {
 
-        return Exercises.getCompanyStream().mapToLong(company -> company.getUsers().size()).sum();
+        return Exercises.getCompanyStream().mapToLong(company -> company.getUsers().size())
+                .sum();
     }
 
     /**
@@ -90,7 +92,9 @@ public class Exercises {
      */
     public static LinkedList<String> getAllCompaniesNamesAsLinkedList() {
 
-        return Exercises.getCompanyStream().map(Company::getName).collect(Collectors.toCollection(LinkedList::new));
+        return Exercises.getCompanyStream()
+                .map(Company::getName)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -154,7 +158,9 @@ public class Exercises {
      * wyjątek IllegalArgumentException.
      */
     public static User getUser(final Predicate<User> predicate) {
-        return Exercises.getUserStream().filter(predicate).findAny().orElseThrow(() -> new IllegalArgumentException("Nie znaleziono użytkownika"));
+        return Exercises.getUserStream()
+                .filter(predicate).findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono użytkownika"));
     }
 
     /**
@@ -162,7 +168,9 @@ public class Exercises {
      */
     public static Map<String, Account> createAccountsMap() {
 
-        return Exercises.getAccoutStream().collect(Collectors.toMap(Account::getNumber, account -> account, (a, b) -> a));
+        return Exercises.getAccoutStream()
+                .collect(Collectors
+                        .toMap(Account::getNumber, account -> account, (a, b) -> a));
     }
 
     /**
@@ -170,7 +178,9 @@ public class Exercises {
      */
     public static String getUserNames() {
 
-        return Exercises.getUserStream().map(User::getFirstName).distinct().collect(Collectors.joining(" "));
+        return Exercises.getUserStream()
+                .map(User::getFirstName)
+                .distinct().collect(Collectors.joining(" "));
     }
 
     /**
@@ -178,7 +188,8 @@ public class Exercises {
      * Zosia Psikuta, Zenon Kucowski, Zenek Jawowy ... Alfred Pasibrzuch, Adam Wojcik
      */
     public static void showAllUser() {
-        Exercises.getUserStream().map(user -> String.format("%s %s, ", user.getFirstName(), user.getLastName()))
+        Exercises.getUserStream()
+                .map(user -> String.format("%s %s, ", user.getFirstName(), user.getLastName()))
                 .sorted(Comparator.reverseOrder()).forEach(System.out::print);
     }
 
@@ -226,15 +237,20 @@ public class Exercises {
     }
 
     private static void exercise8() {
-        employee.stream().filter(employee -> employee.getAge() < 26).sorted(Comparator.comparing(Employee::getName))
+        employee.stream()
+                .filter(employee -> employee.getAge() < 26)
+                .sorted(Comparator.comparing(Employee::getName))
                 .collect(Collectors.groupingBy(Employee::getDepartment, Collectors
                         .mapping(Employee::toString, Collectors.joining(", "))))
                 .forEach((department, data) -> System.out.printf("%s: {%s}%n", department, data));
     }
 
     private static String exercise9(List<String> list) {
-        return list.stream().flatMap(s -> Arrays.stream(s.split(" "))).collect(Collectors.toCollection(TreeSet::new))
-                .stream().collect(Collectors.joining(","));
+        return list.stream()
+                .flatMap(sentence -> Arrays.stream(sentence.split(" "))).distinct()
+                .collect(Collectors.joining(","));
+
+
     }
 
 }
