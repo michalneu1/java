@@ -14,8 +14,7 @@ public class Smartphone extends CellPhone {
     public void showCallHistory() {
         Arrays.stream(callHistory)
                 .forEach(number -> getFriendByNumber(number)
-                        .ifPresentOrElse(person -> System.out.printf("%s %s %s%n",
-                                person.name(),person.lastName(),person.number()),
+                        .ifPresentOrElse(this::showPerson,
                                 () -> System.out.println(number)));
     }
 
@@ -23,5 +22,9 @@ public class Smartphone extends CellPhone {
         return Arrays.stream(friends)
                 .filter(person -> person.number().equals(number))
                 .findFirst();
+    }
+
+    public void showPerson(Person person){
+          System.out.printf("%s %s %s%n", person.name(),person.lastName(),person.number());
     }
 }
