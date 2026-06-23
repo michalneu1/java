@@ -6,8 +6,8 @@ import org.example.exception.InvalidPhoneNumberException;
 import java.awt.*;
 
 public class CellPhone extends Phone {
-    protected static int callHistoryMaxSize = 10;
-    protected String[] callHistory = new String[callHistoryMaxSize];
+    protected static final int CALL_HISTORY_MAX_SIZE = 10;
+    protected String[] callHistory = new String[CALL_HISTORY_MAX_SIZE];
     protected int callsInHistoryCounter = 0;
 
     public CellPhone(String communicationInterface, Color color) {
@@ -16,7 +16,7 @@ public class CellPhone extends Phone {
 
     public void call(String number) throws InvalidPhoneNumberException {
         isPhoneNumber(number);
-        if (callsInHistoryCounter >= callHistoryMaxSize) {
+        if (callsInHistoryCounter >= CALL_HISTORY_MAX_SIZE) {
             throw new CallHistoryIsFullException("Spis połączeń jest pełny");
         }
         callHistory[callsInHistoryCounter] = number;
