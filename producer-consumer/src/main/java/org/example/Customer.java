@@ -1,16 +1,21 @@
 package org.example;
 
-public class Customer implements Runnable{
-    private final SharedStack shared;
+import java.util.concurrent.CountDownLatch;
 
-    public Customer(SharedStack shared) {
+public class Customer implements Runnable {
+    private final SharedQueue shared;
+    private final CountDownLatch consumed;
+
+    public Customer(SharedQueue shared, CountDownLatch consumed) {
         this.shared = shared;
+        this.consumed = consumed;
     }
 
     @Override
     public void run() {
-        while (true){
-            this.shared.removeElement();
+        while (true) {
+            shared.removeElement();
+            consumed.countDown();
         }
     }
 }

@@ -3,26 +3,29 @@ package org.example;
 import java.util.Random;
 
 public class Producer implements Runnable {
-    private final SharedStack shared;
-    Random rnd = new Random();
-    final int productionLimit = 29;
+    private final SharedQueue shared;
+    private final Random rnd = new Random();
+    private int productionLimit;
 
-    public Producer(SharedStack shared) {
+    public Producer(SharedQueue shared, int productionLimit) {
         this.shared = shared;
+        this.productionLimit = productionLimit;
+    }
+
+    public int getProductionLimit() {
+        return productionLimit;
     }
 
     @Override
     public void run() {
-        int count =0;
-        while (count<= productionLimit) {
-            count++;
+        while (productionLimit > 0) {
+            productionLimit--;
             try {
-                Thread.sleep(rnd.nextInt(0,5000));
+                Thread.sleep(rnd.nextInt(0, 1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("wyprodukowano element nr: " + count);
-            this.shared.addElement();
+            shared.addElement();
         }
     }
 }
